@@ -1,3 +1,4 @@
 module.exports = {
-  title: "Project Name"
+  title: "Project Name",
+  dsn: "insert your sentry dsn here"
 }

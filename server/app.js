@@ -7,6 +7,7 @@ import setup from './handler/setup'
 import routes from './routes/index'
 import render from './handler/render'
 import createRenderer from './handler/createBundler'
+import raven from './raven'
 
 const resolve = file => path.resolve(__dirname, file)
 const redirects = require('../router/301.json')
