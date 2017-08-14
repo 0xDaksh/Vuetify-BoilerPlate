@@ -1,13 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import express from 'express'
-import prod from './handler/prod'
 import LRU from 'lru-cache'
 import setup from './handler/setup'
 import routes from './routes/index'
 import render from './handler/render'
 import createRenderer from './handler/createBundler'
 import raven from './handler/raven'
+import config from './config'
 
 const resolve = file => path.resolve(__dirname, file)
 const redirects = require('../router/301.json')
@@ -18,7 +18,7 @@ const isProd = process.env.NODE_ENV === 'production',
   app = express()
 
 // continuous integration with sentry
-raven(app)
+raven(app, config.dsn)
 
 // SETUP RENDERER AND READYPROMISE
 let renderer, readyPromise;
