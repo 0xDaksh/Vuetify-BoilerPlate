@@ -1,9 +1,9 @@
 import compression from 'compression'
 import favicon from 'serve-favicon'
 
-export default (app) => {
+export default (app, serve) => {
   app.use(compression({ threshold: 0 }))
-  app.use(favicon('../../static/favicon.ico'))
+  app.use(favicon(__dirname + '/../../static/favicon.ico'))
   app.use('/static', serve('../../static', true))
   app.use('/public', serve('../../public', true))
   app.use('/static/robots.txt', serve('../../robots.txt'))

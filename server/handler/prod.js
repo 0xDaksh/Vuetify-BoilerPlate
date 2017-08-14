@@ -1,4 +1,4 @@
-import createRenderer from './handler/createBundler'
+import createRenderer from './createBundler'
 export default function (app, isProd, renderer, readyPromise) {
   if (isProd) {
     // In production: create server renderer using built server bundle.

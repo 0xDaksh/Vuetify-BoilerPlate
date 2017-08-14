@@ -5,9 +5,10 @@ import express from 'express'
 import prod from './handler/prod'
 import setup from './handler/setup'
 import routes from './routes/index'
+import render from './handler/render'
 
 const resolve = file => path.resolve(__dirname, file)
-const redirects = require('./router/301.json')
+const redirects = require('../router/301.json')
 
 // MANAGE PRODUCTION STUFF
 const isProd = process.env.NODE_ENV === 'production',
@@ -26,7 +27,7 @@ const serve = (path, cache) => express.static(resolve(path), {
 })
 
 // SETUP SHIT UP
-setup(app);
+setup(app, serve);
 
 // 301 redirect for changed routes
 Object.keys(redirects).forEach(k => {
@@ -40,34 +41,12 @@ const microCache = LRU({
   maxAge: 1000
 })
 
-// since this app has no user-specific content, every page is micro-cacheable.
-// if your app involves user-specific content, you need to implement custom
-// logic to determine whether a request is cacheable based on its url and
-// headers.
-
-function render (req, res) {
-
-
-  renderer.renderToString(context, (err, html) => {
-    if (err) {
-      return handleError(err)
-    }
-    res.end(html)
-    if (cacheable) {
-      microCache.set(req.url, html)
-    }
-    if (!isProd) {
-      console.log(`whole request: ${Date.now() - s}ms`)
-    }
-  })
-}
-
 // route management
 app.use('/', routes)
 
 // SPA Router.
 app.get('*', isProd ? render : (req, res) => {
-  readyPromise.then(() => render(req, res, microCache))
+  readyPromise.then(() => render(req, res, microCache, renderer))
 })
 
 module.exports = app;
