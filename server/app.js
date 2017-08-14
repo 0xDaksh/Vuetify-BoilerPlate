@@ -7,7 +7,7 @@ import setup from './handler/setup'
 import routes from './routes/index'
 import render from './handler/render'
 import createRenderer from './handler/createBundler'
-import raven from './raven'
+import raven from './handler/raven'
 
 const resolve = file => path.resolve(__dirname, file)
 const redirects = require('../router/301.json')
@@ -16,6 +16,9 @@ const redirects = require('../router/301.json')
 const isProd = process.env.NODE_ENV === 'production',
   useMicroCache = process.env.MICRO_CACHE !== 'false',
   app = express()
+
+// continuous integration with sentry
+raven(app)
 
 // SETUP RENDERER AND READYPROMISE
 let renderer, readyPromise;
