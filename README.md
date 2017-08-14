@@ -1,13 +1,13 @@
-# Vuetify Webpack SSR Template
+# Vue.js BoilerPlate
 
-> Vuetify SSR Webpack Template
+> Vue + Vuetify + Express + TravisCI + Sentry + MicroCache = <3 | Vue.js Boilerplate Edit
 
 ## Build Setup
 
 ``` bash
-vue init vuetifyjs/webpack-ssr
+git clone https://github.com/DakshMiglani/Vuetify-BoilerPlate.git
 
-cd webpack-ssr
+cd Vuetify-BoilerPlate
 
 # npm
 npm install
@@ -15,5 +15,3 @@ npm install
 # yarn
 yarn
 ```
-
-For additional information, please visit the [Official Documentation](https://vuetifyjs.com).
